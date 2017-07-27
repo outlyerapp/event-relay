@@ -1,0 +1,13 @@
+Subject: [Outlyer] Alert "{{ event.rule }}" is now {{ event.message_type }} in account {{ event.account }}
+
+Alert conditions:
+{% for c in criteria %}{% if c.state == "triggered" %}
+   - {{ c.description }}
+   - Triggered at {{ c.triggered_at |datetimeformat('%-I:%M:%S %p on %a %d %b %Y') }}
+   - Hosts: {% for s in c.sources %}{%  if s.state == "triggered" %}
+       * {{ s.agent.name }}{% endif %}{% endfor %}
+{% endif %}{% endfor %}
+
+---
+
+Link to event: http://app.outlyer.com/{{ org_id }}/{{ account_id }}/#/alerts/{{ rule_id }}

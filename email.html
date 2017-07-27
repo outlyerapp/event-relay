@@ -1,0 +1,236 @@
+<html>
+<head>
+  <meta name="viewport" content="width=device-width"/>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <title>Outlyer Alert</title>
+  <link href="https://fonts.googleapis.com/css?family=Hammersmith+One|Open+Sans" rel="stylesheet"/>
+</head>
+<body class=""
+      style="background-color:#f6f6f6;font-family:'Open Sans', sans-serif;-webkit-font-smoothing:antialiased;font-size:14px;line-height:1.4;margin-top:0;margin-bottom:0;margin-right:0;margin-left:0;padding-top:0;padding-bottom:0;padding-right:0;padding-left:0;-ms-text-size-adjust:100%;-webkit-text-size-adjust:100%;">
+<table border="0" cellpadding="0" cellspacing="0" class="body"
+       style="border-collapse:separate;mso-table-lspace:0pt;mso-table-rspace:0pt;background-color:#f6f6f6;width:100%;">
+  <tr>
+    <td style="font-family:'Open Sans', sans-serif;font-size:12px;vertical-align:top;">&nbsp;</td>
+    <td class="container"
+        style="font-family:'Open Sans', sans-serif;font-size:12px;vertical-align:top;display:block;Margin:0 auto !important;max-width:580px;padding-top:10px;padding-bottom:10px;padding-right:10px;padding-left:10px;width:580px;">
+      <div class="content"
+           style="box-sizing:border-box;display:block;Margin:0 auto;max-width:580px;padding-top:10px;padding-bottom:10px;padding-right:10px;padding-left:10px;">
+        <div class="logo"
+             style="padding-top:15px;padding-bottom:15px;padding-right:15px;padding-left:15px;text-align:center;">
+          <img src="https://sso.outlyer.com/common/img/dl_logo_app.png"
+               style="border-style:none;-ms-interpolation-mode:bicubic;max-width:100%;"/>
+        </div>
+
+        <!-- START CENTERED WHITE CONTAINER -->
+        <span class="preheader"
+              style="color:transparent;display:none;height:0;max-height:0;max-width:0;opacity:0;overflow:hidden;mso-hide:all;visibility:hidden;width:0;">
+          {% if event.message_type == 'CRITICAL' %}
+            The "{{ event.rule }}" alert in account "{{ account_id }}" has triggered.
+          {% elif event.message_type == 'RECOVERY' %}
+            The "{{ event.rule }}" alert in account "{{ account_id }}" has recovered.
+          {% endif %}
+        </span>
+        <table class="main"
+               style="border-collapse:separate;mso-table-lspace:0pt;mso-table-rspace:0pt;background-color:#fff;background-image:none;background-repeat:repeat;background-position:top left;background-attachment:scroll;border-radius:3px;width:100%;">
+          <tr>
+            <td class="stripe"
+                style="font-family:sans-serif;font-size:14px;vertical-align:top;width:5px;height:5px;margin-right:10px;background-color:{{ color }};"></td>
+          </tr>
+
+          <!-- START MAIN CONTENT AREA -->
+          <tr>
+            <td class="wrapper"
+                style="font-family:'Open Sans', sans-serif;font-size:12px;vertical-align:top;box-sizing:border-box;padding-top:20px;padding-bottom:20px;padding-right:20px;padding-left:20px;">
+              <table border="0" cellpadding="0" cellspacing="0"
+                     style="border-collapse:separate;mso-table-lspace:0pt;mso-table-rspace:0pt;width:100%;">
+                <tr>
+                  <td style="font-family:'Open Sans', sans-serif;font-size:12px;vertical-align:top;">
+                    <p style="font-family:'Open Sans', sans-serif;font-size:14px;font-weight:normal;margin-top:0;margin-bottom:0;margin-right:0;margin-left:0;Margin-bottom:15px;">
+                      Greetings,</p>
+                    <p style="font-family:'Open Sans', sans-serif;font-size:14px;font-weight:normal;margin-top:0;margin-bottom:0;margin-right:0;margin-left:0;Margin-bottom:15px;">
+                      {% if event.message_type == 'CRITICAL' %}
+                        The <b>"{{ event.rule }}"</b> alert in account "{{ account_id }}" has just been triggered
+                        and is now in {{ event.status |upper }} status.
+                      {% elif event.message_type == 'RECOVERY' %}
+                        The <b>"{{ event.rule }}"</b> alert in account "{{ account_id }}" has recovered and is now
+                        {{ event.status |upper }}.
+                      {% endif %}
+                    </p>
+                    <table class="tube" border="0" cellpadding="0" cellspacing="0"
+                           style="border-collapse:separate;mso-table-lspace:0pt;mso-table-rspace:0pt;width:100%;">
+                      <tr>
+                        <td class="tube-top"
+                            style="font-family:'Open Sans', sans-serif;font-size:12px;vertical-align:top;width:25px;height:25px;background-color:transparent;background-image:url('https://s3.us-east-2.amazonaws.com/event-map.tube/tube-line.png');background-repeat:repeat;background-position:top left;background-attachment:scroll;">
+                          <img src="https://s3.us-east-2.amazonaws.com/event-map.tube/tube-top.png"
+                               style="border-style:none;-ms-interpolation-mode:bicubic;max-width:100%;"/>
+                        </td>
+                        <td class="tube-spacer"
+                            style="font-family:'Open Sans', sans-serif;font-size:12px;vertical-align:top;width:10px;">
+                        <td class="tube-text"
+                            style="vertical-align:top;font-family:'Hammersmith One', sans-serif;font-size:16px;padding-bottom:20px;">
+                          Event Starts
+                          <div class="tube-time" style="font-family:'Open Sans', sans-serif;font-size:10px;color:#888;">
+                            {{ timeline[0].timestamp |datetimeformat('%-I:%M:%S %p on %a %d %b %Y') }}
+                          </div>
+                        </td>
+                      </tr>
+
+                      {% for u in timeline %}
+                        {% for c in u.changes %}
+                          {% for h in c.triggered %}
+                            {% set a = agents[h] %}
+                      <tr>
+                        <td class="tube-station"
+                            style="font-family:'Open Sans', sans-serif;font-size:12px;vertical-align:top;width:25px;height:25px;background-color:transparent;background-image:url('https://s3.us-east-2.amazonaws.com/event-map.tube/tube-line.png');background-repeat:repeat;background-position:top left;background-attachment:scroll;">
+                          <img src="https://s3.us-east-2.amazonaws.com/event-map.tube/tube-station.png"
+                               style="border-style:none;-ms-interpolation-mode:bicubic;max-width:100%;"/>
+                        </td>
+                        <td class="tube-spacer"
+                            style="font-family:'Open Sans', sans-serif;font-size:12px;vertical-align:top;width:10px;">
+                        <td class="tube-text"
+                            style="vertical-align:top;font-family:'Hammersmith One', sans-serif;font-size:16px;padding-bottom:20px;">
+                          Host <a class="host critical"
+                                  href="https://app.outlyer.com/dataloop-demo/java-ecommerce/#/setup/agents/{{ h }}"
+                                  style="text-decoration:none;color:red;">{{ a.name }}</a>
+                          {{ 'went down' if c.criteria == 'agent status' else 'triggered' }}
+                          {% if c.criteria != 'agent status' %}
+                          <div class="tube-criteria"
+                               style="font-family:'Open Sans', sans-serif;font-size:10px;color:#888;">
+                            Criteria triggered: {{ c.criteria }}
+                          </div>
+                          {% endif %}
+                          <div class="tube-time" style="font-family:'Open Sans', sans-serif;font-size:10px;color:#888;">
+                            {{ u.timestamp |datetimeformat('%-I:%M:%S %p on %a %d %b %Y') }}
+                          </div>
+                        </td>
+                      </tr>
+                            {% endfor %}
+                          {% for h in c.resolved %}
+                            {% set a = agents[h] %}
+                      <tr>
+                        <td class="tube-station"
+                            style="font-family:'Open Sans', sans-serif;font-size:12px;vertical-align:top;width:25px;height:25px;background-color:transparent;background-image:url('https://s3.us-east-2.amazonaws.com/event-map.tube/tube-line.png');background-repeat:repeat;background-position:top left;background-attachment:scroll;">
+                          <img src="https://s3.us-east-2.amazonaws.com/event-map.tube/tube-station.png"
+                               style="border-style:none;-ms-interpolation-mode:bicubic;max-width:100%;"/>
+                        </td>
+                        <td class="tube-spacer"
+                            style="font-family:'Open Sans', sans-serif;font-size:12px;vertical-align:top;width:10px;">
+                        <td class="tube-text"
+                            style="vertical-align:top;font-family:'Hammersmith One', sans-serif;font-size:16px;padding-bottom:20px;">
+                          Host <a class="host critical"
+                                  href="https://app.outlyer.com/dataloop-demo/java-ecommerce/#/setup/agents/{{ h }}"
+                                  style="text-decoration:none;color:green;">{{ a.name }}</a>
+                          {{ 'came back up' if c.criteria == 'agent status' else 'cleared' }}
+                          {% if c.criteria != 'agent status' %}
+                          <div class="tube-criteria"
+                               style="font-family:'Open Sans', sans-serif;font-size:10px;color:#888;">
+                            Criteria triggered: {{ c.criteria }}
+                          </div>
+                          {% endif %}
+                          <div class="tube-time" style="font-family:'Open Sans', sans-serif;font-size:10px;color:#888;">
+                            {{ u.timestamp |datetimeformat('%-I:%M:%S %p on %a %d %b %Y') }}
+                          </div>
+                        </td>
+                      </tr>
+                            {% endfor %}
+                          {% endfor %}
+                      {% endfor %}
+
+                      {% if event.event_type == 'resolve' %}
+                      <tr>
+                        <td class="tube-bottom"
+                            style="font-family:'Open Sans', sans-serif;font-size:12px;vertical-align:top;width:25px;height:25px;">
+                          <img src="https://s3.us-east-2.amazonaws.com/event-map.tube/tube-bottom.png"
+                               style="border-style:none;-ms-interpolation-mode:bicubic;max-width:100%;"/>
+                        </td>
+                        <td class="tube-spacer"
+                            style="font-family:'Open Sans', sans-serif;font-size:12px;vertical-align:top;width:10px;">
+                        <td class="tube-text"
+                            style="vertical-align:top;font-family:'Hammersmith One', sans-serif;font-size:16px;padding-bottom:20px;">
+                          Event Ends
+                          <div class="tube-time" style="font-family:'Open Sans', sans-serif;font-size:10px;color:#888;">
+                            {{ event.updated |datetimeformat('%-I:%M:%S %p on %a %d %b %Y') }}
+                          </div>
+                        </td>
+                      </tr>
+                      {% endif %}
+
+                    </table>
+
+                    <div style="margin-bottom: 15px;"></div>
+
+                    <table border="0" cellpadding="0" cellspacing="0" class="btn btn-primary"
+                           style="border-collapse:separate;mso-table-lspace:0pt;mso-table-rspace:0pt;box-sizing:border-box;width:100%;">
+                      <tbody>
+                      <tr>
+                        <td align="left"
+                            style="font-family:'Open Sans', sans-serif;font-size:12px;vertical-align:top;padding-bottom:15px;">
+                          <table border="0" cellpadding="0" cellspacing="0"
+                                 style="border-collapse:separate;mso-table-lspace:0pt;mso-table-rspace:0pt;width:auto;">
+                            <tbody>
+                            <tr>
+                              <td style="font-family:'Open Sans', sans-serif;font-size:12px;vertical-align:top;border-radius:5px;text-align:center;background-color:#3498db;">
+                                <a href="http://app.outlyer.com/{{ org }}/{{ account }}/#/alerts/{{ entity_id }}"
+                                   target="_blank"
+                                   style="border-width:1px;border-style:solid;border-radius:5px;box-sizing:border-box;cursor:pointer;display:inline-block;font-size:14px;font-weight:bold;margin-top:0;margin-bottom:0;margin-right:0;margin-left:0;padding-top:12px;padding-bottom:12px;padding-right:25px;padding-left:25px;text-decoration:none;text-transform:capitalize;background-color:#3498db;border-color:#3498db;color:#ffffff;">View
+                                  Alert</a></td>
+                            </tr>
+                            </tbody>
+                          </table>
+                        </td>
+                      </tr>
+                      </tbody>
+                    </table>
+
+                    {% if event.extra_message %}
+                      <p style="font-family:sans-serif;font-size:14px;font-weight:normal;margin-top:0;margin-bottom:0;margin-right:0;margin-left:0;Margin-bottom:15px;">
+                        <b>Additional Message</b></p>
+                      <p style="font-family:sans-serif;font-size:14px;font-weight:normal;margin-top:0;margin-bottom:0;margin-right:0;margin-left:0;Margin-bottom:15px;">{{ event.extra_message }}</p>
+                    {% endif %}
+
+                  </td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+
+          <!-- END MAIN CONTENT AREA -->
+          <tr>
+            <td class="stripe"
+                style="font-family:sans-serif;font-size:14px;vertical-align:top;width:5px;height:5px;margin-right:10px;background-color:{{ color }};"></td>
+          </tr>
+        </table>
+
+        <!-- START FOOTER -->
+        <div class="footer" style="clear:both;padding-top:10px;text-align:center;width:100%;">
+          <table border="0" cellpadding="0" cellspacing="0"
+                 style="border-collapse:separate;mso-table-lspace:0pt;mso-table-rspace:0pt;width:100%;">
+            <tr>
+              <td class="content-block"
+                  style="font-family:'Open Sans', sans-serif;vertical-align:top;color:#999999;font-size:10px;text-align:center;">
+                <span class="apple-link" style="color:#999999;font-size:10px;text-align:center;">Outlyer Inc, 180 Kings Cross Road, Kings Cross, London WC1X 9DE</span>
+                <br>Don't like these emails? <a
+                      href="http://app.outlyer.com/{{ org }}/{{ account }}/#/alerts/{{ entity_id }}?tab=actions"
+                      style="text-decoration:underline;color:#999999;font-size:10px;text-align:center;">Change alert
+                settings</a>.
+              </td>
+            </tr>
+            <tr>
+              <td class="content-block powered-by"
+                  style="font-family:'Open Sans', sans-serif;vertical-align:top;color:#999999;font-size:10px;text-align:center;">
+                Powered by <a href="http://www.outlyer.com"
+                              style="color:#999999;font-size:10px;text-align:center;text-decoration:none;">Outlyer</a>.
+              </td>
+            </tr>
+          </table>
+        </div>
+        <!-- END FOOTER -->
+
+        <!-- END CENTERED WHITE CONTAINER -->
+      </div>
+    </td>
+    <td style="font-family:'Open Sans', sans-serif;font-size:12px;vertical-align:top;">&nbsp;</td>
+  </tr>
+</table>
+</body>
+</html>
