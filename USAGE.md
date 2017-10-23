@@ -18,7 +18,7 @@ Using the Event Relay
   "bcc": [ ],
   "format": "html",
   "extra_message": "Yo! Something is on fire!",
-  "subject": "[Outlyer] Alert '{{ event.rule }}' is now {{ event.status |UPPER }}",
+  "subject": "[Outlyer] Alert '{{ event.rule }}' is now {{ event.status |upper }}",
   "api_key": "xxx"
 }
 ```
