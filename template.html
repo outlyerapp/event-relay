@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta name="viewport" content="width=device-width"/>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <title>Outlyer Alert</title>
+</head>
+<body class="">
+<table border="0" cellpadding="0" cellspacing="0" class="body">
+  <tr>
+    <td>&nbsp;</td>
+    <td class="container">
+      <div class="content">
+        <div class="logo">
+          <img src="https://sso.outlyer.com/common/img/dl_logo_app.png"/>
+        </div>
+
+        <!-- START CENTERED WHITE CONTAINER -->
+        <span class="preheader">This is preheader text. Some clients will show this text as a preview.</span>
+        <table class="main">
+          <tr>
+            <td class="stripe critical"></td>
+          </tr>
+
+          <!-- START MAIN CONTENT AREA -->
+          <tr>
+            <td class="wrapper">
+              <table border="0" cellpadding="0" cellspacing="0">
+                <tr>
+                  <td>
+                    <p>Greetings,</p>
+                    <p>The "All Systems" alert has just been triggered in the "java-ecommerce" account.</p>
+                    <table class="tube" border="0" cellpadding="0" cellspacing="0">
+                      <tr>
+                        <td class="tube-top">
+                          <img src="https://s3.us-east-2.amazonaws.com/event-map.tube/tube-top.png"/>
+                        </td>
+                        <td class="tube-spacer">
+                        <td/>
+                        <td class="tube-text">Incident Starts
+                          <div class="tube-time">4:38:46 PM on Tue 18 Jul 2017</div>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td class="tube-station">
+                          <img src="https://s3.us-east-2.amazonaws.com/event-map.tube/tube-station.png"/>
+                        </td>
+                        <td class="tube-spacer">
+                        <td/>
+                        <td class="tube-text">Host <a class="host critical"
+                                                      href="https://app.outlyer.com/dataloop-demo/java-ecommerce/#/setup/agents/a14552e2-2429-5973-8238-1b03f737fb51">demo-ecommerce-mysql</a>
+                          triggered
+                          <div class="tube-criteria">Metric <tt>base.load_fractional</tt> has been greater than
+                            threshold 0 for 120 seconds.
+                          </div>
+                          <div class="tube-time">4:38:46 PM on Tue 18 Jul 2017</div>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td class="tube-station">
+                          <img src="https://s3.us-east-2.amazonaws.com/event-map.tube/tube-station.png"/>
+                        </td>
+                        <td class="tube-spacer">
+                        <td/>
+                        <td class="tube-text">Host demo-ecommerce-app triggered
+                          <div class="tube-time">4:38:46 PM on Tue 18 Jul 2017</div>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td class="tube-bottom">
+                          <img src="https://s3.us-east-2.amazonaws.com/event-map.tube/tube-bottom.png"/>
+                        </td>
+                        <td class="tube-spacer">
+                        <td/>
+                        <td class="tube-text">Alert Cleared
+                          <div class="tube-time">4:38:46 PM on Tue 18 Jul 2017</div>
+                        </td>
+                      </tr>
+                    </table>
+
+
+                    <table border="0" cellpadding="0" cellspacing="0" class="btn btn-primary">
+                      <tbody>
+                      <tr>
+                        <td align="left">
+                          <table border="0" cellpadding="0" cellspacing="0">
+                            <tbody>
+                            <tr>
+                              <td><a href="http://app.outlyer.com/{{ org }}/{{ account }}/#/alerts/{{ entity_id }}"
+                                     target="_blank">View Alert</a></td>
+                            </tr>
+                            </tbody>
+                          </table>
+                        </td>
+                      </tr>
+                      </tbody>
+                    </table>
+                    <p><b>Additional Message</b></p>
+                    <p>Failures in Stored Procedure Execution detected. Check the logs.</p>
+                  </td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+
+          <!-- END MAIN CONTENT AREA -->
+          <tr>
+            <td class="stripe critical"></td>
+          </tr>
+        </table>
+
+        <!-- START FOOTER -->
+        <div class="footer">
+          <table border="0" cellpadding="0" cellspacing="0">
+            <tr>
+              <td class="content-block">
+                <span class="apple-link">Outlyer Inc, 180 Kings Cross Road, Kings Cross, London WC1X 9DE</span>
+                <br>Don't like these emails? <a
+                      href="http://app.outlyer.com/{{ org }}/{{ account }}/#/alerts/{{ entity_id }}?tab=actions">Change
+                alert settings</a>.
+              </td>
+            </tr>
+            <tr>
+              <td class="content-block powered-by">
+                Powered by <a href="http://www.outlyer.com">Outlyer</a>.
+              </td>
+            </tr>
+          </table>
+        </div>
+        <!-- END FOOTER -->
+
+        <!-- END CENTERED WHITE CONTAINER -->
+      </div>
+    </td>
+    <td>&nbsp;</td>
+  </tr>
+</table>
+</body>
+</html>

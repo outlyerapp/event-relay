@@ -104,6 +104,13 @@ class Event:
         r = requests.get(url, headers=headers)
         r.raise_for_status()
         agents = {x['id']: DotMap(x) for x in r.json()}
+        for v in agents.values():
+            v.parent_id = None
+            if v.container_name == 'docker':
+                for l in v.labels:
+                    if l.key == 'parent_id':
+                        v.parent_id = l.value
+                        break
         return agents
 
     def _get_color(self):
@@ -223,7 +230,7 @@ def render_plain(event_obj, context):
 
 
 def lambda_handler(event, context):
-    logger.debug("Payload received:\n" + json_dump(event))
+    logger.info("Payload received:\n" + json_dump(event))
 
     e = Event(event)
     html = render_html(e, context)
@@ -252,6 +259,6 @@ def local_dump(basename):
 
 if __name__ == '__main__':
     local_dump('event1')
-    local_dump('event2')
-    local_dump('event3')
-    local_dump('recovery')
+    # local_dump('event2')
+    # local_dump('event3')
+    # local_dump('recovery')
